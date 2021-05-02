@@ -71,18 +71,11 @@ def list_user_status(user_id: int) -> Any:
 
 
 @flask_app.route(
-    '/<int:user_id>/buy/<string:currency_name>/<string:count>/<string:user_time>',
+    '/<int:user_id>/buy/<string:currency_name>/<string:count>',
     methods=['post', 'get'],
 )
-def buy(user_id: int, currency_name: str, count: str, user_time: str) -> Any:
+def buy(user_id: int, currency_name: str, count: str) -> Any:
     try:
-        if not user_time == 'time':
-            print(user_time)
-            if (
-                datetime.strptime(user_time, '%d.%m.%Y.%H:%M:%S')
-                < time_of_last_operation.time
-            ):
-                return Info.rate_changed_during_operation, HTTPStatus.OK
         result = exchange_currency(user_id, currency_name, count, 'buy')
         return result, HTTPStatus.OK
     except CustomError as ex:
@@ -90,17 +83,11 @@ def buy(user_id: int, currency_name: str, count: str, user_time: str) -> Any:
 
 
 @flask_app.route(
-    '/<int:user_id>/sell/<string:name>/<string:count>/<string:user_time>',
+    '/<int:user_id>/sell/<string:name>/<string:count>',
     methods=['post', 'get'],
 )
-def sell(user_id: int, name: str, count: str, user_time: str) -> Any:
+def sell(user_id: int, name: str, count: str) -> Any:
     try:
-        if not user_time == 'time':
-            if (
-                datetime.strptime(user_time, '%d.%m.%Y.%H:%M:%S')
-                < time_of_last_operation.time
-            ):
-                return Info.rate_changed_during_operation, HTTPStatus.OK
         result = exchange_currency(user_id, name, count, 'sell')
         return result, HTTPStatus.OK
     except CustomError as ex:

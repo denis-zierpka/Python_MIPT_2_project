@@ -16,7 +16,7 @@ class Info:
 
     failed = 'Failed\n'
     user_exists = 'Exists\n'
-    register_success = 'User {} registered successfully\nYour id is: {}'
+    register_success = 'User {} registered successfully\nYour id is: {}\n'
     login_success = 'User {} entered successfully\n'
     no_currency = 'You don\'t have any cryptocurrencies\n'
     not_enough_money = 'You don\'t have enough money for this operation\n'
